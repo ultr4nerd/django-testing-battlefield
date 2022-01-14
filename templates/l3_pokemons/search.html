@@ -1,0 +1,62 @@
+{% extends "_base.html" %}
+
+{% block title %}<title>Pokémon</title>{% endblock title %}
+
+{% block content %}
+    <header class="hero is-danger">
+        <div class="hero-body">
+            <p class="title">
+                Pokémon
+            </p>
+            <p class="subtitle">
+                Busca a tu favorito por ID
+            </p>
+        </div>
+    </header>
+    <section class="section">
+        <div class="container">
+            {% if request.GET.pokemon_id is not None and not pokemon %}
+            <div class="notification is-warning is-light">
+                No se pudo encontrar el Pokémon buscado
+            </div>
+            {% endif %}
+            <form>
+                <div class="field has-addons">
+                    <div class="control is-expanded">
+                        <label>
+                            <input
+                                    class="input" type="number" name="pokemon_id" placeholder="Ingresar ID..."
+                                    {% if request.GET.pokemon_id is not None %}value="{{ request.GET.pokemon_id }}"{% endif %}
+                            />
+                        </label>
+                    </div>
+                    <div class="control">
+                        <button type="submit" class="button is-black">
+                            Buscar
+                        </button>
+                    </div>
+                </div>
+            </form>
+            {% if pokemon %}
+                <div class="box mt-6">
+                    <div class="content">
+                        <h3>{{ pokemon.name|capfirst }}</h3>
+                        <ul>
+                            <li>Experiencia base: {{ pokemon.base_experience }}</li>
+                            <li>Peso: {{ pokemon.weight }}</li>
+                            <li>Altura: {{ pokemon.height }}</li>
+                        </ul>
+                        <h4>Tipos</h4>
+                        <ul>
+                            {% for type in pokemon.types %}
+                                <li>{{ type.type.name }}</li>
+                            {% endfor %}
+
+                        </ul>
+                    </div>
+
+                </div>
+            {% endif %}
+        </div>
+    </section>
+{% endblock %}

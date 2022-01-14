@@ -1,0 +1,84 @@
+{% extends "_base.html" %}
+
+{% block title %}<title>Nuevo director</title>{% endblock title %}
+
+{% block content %}
+    <header class="hero is-black">
+        <div class="hero-body">
+            <p class="title">
+                Crear director
+            </p>
+            <div class="buttons">
+                <a href="{% url 'movies:list' %}" class="button is-warning is-light">
+                    Volver
+                </a>
+            </div>
+        </div>
+    </header>
+    <section class="section">
+        <div class="container">
+            {% for error in form.non_field_errors %}
+                <div class="notification is-danger is-light">
+                    {{ error }}
+                </div>
+            {% endfor %}
+
+            <form method="POST">
+                {% csrf_token %}
+                <div class="field">
+                    <label for="first-name-id" class="label{% if form.first_name.errors %} has-text-danger{% endif %}">
+                        Nombre(s):
+                    </label>
+                    <div class="control">
+                        <input
+                                class="input{% if form.first_name.errors %} is-danger{% endif %}" type="text"
+                                name="first_name" placeholder="Ingresar nombre(s)..." id="first-name-id" required
+                                {% if form.errors %}value="{{ form.first_name.value }}"{% endif %}
+                        />
+                    </div>
+                    {% for error in form.first_name.errors %}
+                        <p class="help is-danger">{{ error }}</p>
+                    {% endfor %}
+                </div>
+                <div class="field">
+                    <label for="last-name-id" class="label{% if form.last_name.errors %} has-text-danger{% endif %}">
+                        Apellido(s):
+                    </label>
+                    <div class="control">
+                        <input
+                                class="input{% if form.last_name.errors %} is-danger{% endif %}" type="text"
+                                name="last_name" placeholder="Ingresar apellido(s)..." id="last-name-id" required
+                                {% if form.errors %}value="{{ form.last_name.value }}"{% endif %}
+                        />
+                    </div>
+                    {% for error in form.last_name.errors %}
+                        <p class="help is-danger">{{ error }}</p>
+                    {% endfor %}
+                </div>
+                <div class="field">
+                    <label for="birthday-id" class="label{% if form.birthday.errors %} has-text-danger{% endif %}">
+                        Fecha de nacimiento
+                    </label>
+                    <div class="control">
+                        <input
+                                class="input{% if form.birthday.errors %} is-danger{% endif %}"
+                                type="date" name="birthday" id="birthday-id" required
+                                {% if form.errors %}value="{{ form.birthday.value }}"{% endif %}
+                        />
+                    </div>
+                    {% for error in form.birthday.errors %}
+                        <p class="help is-danger">{{ error }}</p>
+                    {% endfor %}
+                </div>
+                <div class="field is-grouped mt-5">
+                    <div class="control">
+                        <button type="submit" class="button is-link">Crear</button>
+                    </div>
+                    <div class="control">
+                        <button type="reset" class="button is-link is-light">Limpiar</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </section>
+{% endblock %}

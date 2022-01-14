@@ -1,0 +1,28 @@
+{% extends "_base.html" %}
+
+{% block title %}<title>Eliminar película</title>{% endblock title %}
+
+{% block content %}
+    <header class="hero is-black">
+        <div class="hero-body">
+            <p class="title">
+                Eliminar película
+            </p>
+            <div class="buttons">
+                <a href="{% url 'movies:list' %}" class="button is-warning is-light">
+                    Volver
+                </a>
+            </div>
+        </div>
+    </header>
+    <section class="section">
+        <div class="container has-text-centered">
+            <form method="POST">
+                {% csrf_token %}
+                <h3 class="title is-4">¿Segurx de que quieres eliminar "{{ object }}"?</h3>
+                {{ form }}
+                <button type="submit" class="button is-danger">Sí, segurx</button>
+            </form>
+        </div>
+    </section>
+{% endblock %}

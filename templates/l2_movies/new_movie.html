@@ -1,0 +1,89 @@
+{% extends "_base.html" %}
+
+{% block title %}<title>Nueva película</title>{% endblock title %}
+
+{% block content %}
+    <header class="hero is-black">
+        <div class="hero-body">
+            <p class="title">
+                Crear película
+            </p>
+            <div class="buttons">
+                <a href="{% url 'movies:list' %}" class="button is-warning is-light">
+                    Volver
+                </a>
+            </div>
+        </div>
+    </header>
+    <section class="section">
+        <div class="container">
+            {% for error in form.non_field_errors %}
+                <div class="notification is-danger is-light">
+                    {{ error }}
+                </div>
+            {% endfor %}
+
+            <form method="POST">
+                {% csrf_token %}
+                <div class="field">
+                    <label for="name-id" class="label{% if form.name.errors %} has-text-danger{% endif %}">
+                        Nombre:
+                    </label>
+                    <div class="control">
+                        <input
+                                class="input{% if form.name.errors %} is-danger{% endif %}" type="text"
+                                name="name" placeholder="Escribir el nombre..." id="name-id" required
+                                {% if form.errors %}value="{{ form.name.value }}"{% endif %}
+                        />
+                    </div>
+                    {% for error in form.name.errors %}
+                        <p class="help is-danger">{{ error }}</p>
+                    {% endfor %}
+                </div>
+                <div class="field">
+                    <label for="date-id" class="label{% if form.date.errors %} has-text-danger{% endif %}">
+                        Fecha:
+                    </label>
+                    <div class="control">
+                        <input
+                                class="input{% if form.date.errors %} is-danger{% endif %}"
+                                type="date" name="date" id="date-id" required
+                                {% if form.errors %}value="{{ form.date.value }}"{% endif %}
+                        />
+                    </div>
+                    {% for error in form.date.errors %}
+                        <p class="help is-danger">{{ error }}</p>
+                    {% endfor %}
+                </div>
+                <div class="field">
+                    <label for="director-id" class="label{% if form.director.errors %} has-text-danger{% endif %}">
+                        Director:
+                    </label>
+                    <div class="control">
+                        <div class="select{% if form.director.errors %} is-danger{% endif %}">
+                            <select id="director-id" name="director" required>
+                                <option>----------</option>
+                                {% for director in directors %}
+                                    <option value="{{ director.id }}">
+                                        {{ director.first_name }} {{ director.last_name }}
+                                    </option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                    {% for error in form.director.errors %}
+                        <p class="help is-danger">{{ error }}</p>
+                    {% endfor %}
+                </div>
+                <div class="field is-grouped mt-5">
+                    <div class="control">
+                        <button type="submit" class="button is-link">Crear</button>
+                    </div>
+                    <div class="control">
+                        <button type="reset" class="button is-link is-light">Limpiar</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </section>
+{% endblock %}

@@ -1,0 +1,26 @@
+{% extends "_base.html" %}
+
+{% block title %}<title>Testing Battlefield</title>{% endblock title %}
+
+{% block content %}
+    <header class="hero is-warning">
+        <div class="hero-body">
+            <h1 class="title">
+                Campo de pruebas para testing
+            </h1>
+        </div>
+    </header>
+    <section class="section">
+        <div class="container">
+            <div class="content">
+                <ul>
+                    <li><a href="{% url 'calculator:calculator' %}">Calculadora</a></li>
+                    <li><a href="{% url 'movies:list' %}">Películas</a></li>
+                    <li><a href="{% url 'pokemons:search' %}">Buscador de Pokémons</a></li>
+                    <li><a href="{% url 'api:movie-list' %}">REST API</a></li>
+                    <li><a href="{% url 'auth:login' %}">Inicio de sesión</a></li>
+                </ul>
+            </div>
+        </div>
+    </section>
+{% endblock %}

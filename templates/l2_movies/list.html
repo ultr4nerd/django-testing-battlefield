@@ -1,0 +1,45 @@
+{% extends "_base.html" %}
+
+{% block title %}<title>Películas</title>{% endblock title %}
+
+{% block content %}
+    <header class="hero is-black">
+        <div class="hero-body">
+            <p class="title">
+                Películas
+            </p>
+            <div class="buttons">
+                <a href="{% url 'movies:new_movie' %}" class="button is-warning">
+                    Crear película
+                </a>
+                <a href="{% url 'movies:new_director' %}" class="button is-warning is-light">
+                    Crear director
+                </a>
+            </div>
+        </div>
+    </header>
+    <section class="section">
+        <div class="container">
+            {% for movie in movie_list %}
+                <div class="card my-3">
+                    <div class="card-content">
+                        <div class="content">
+                            <div class="columns is-mobile is-vcentered">
+                                <div class="column">
+                                    <h3>{{ movie.name }}</h3>
+                                    <h5 class="has-text-info">{{ movie.director.first_name }} {{ movie.director.last_name }}</h5>
+                                    <h6 class="has-text-grey">{{ movie.date }}</h6>
+                                </div>
+                                <div class="column is-narrow">
+                                    <a href="{% url 'movies:delete' movie.pk %}" class="button is-danger is-small">Eliminar</a>
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </section>
+{% endblock %}

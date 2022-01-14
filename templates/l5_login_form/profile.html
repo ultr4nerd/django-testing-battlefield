@@ -1,0 +1,15 @@
+{% extends "_base.html" %}
+
+{% block title %}<title>{{ request.user.username }}</title>{% endblock title %}
+
+{% block content %}
+    <header class="hero is-light">
+        <div class="hero-body">
+            <h1 class="title">
+                Bienvenidx, {{ request.user.username }}
+            </h1>
+            <p class="subtitle is-6">{{ request.user.email }}</p>
+            <a href="{% url 'auth:logout' %}" class="button is-danger is-light">Cerrar sesión</a>
+        </div>
+    </header>
+{% endblock %}

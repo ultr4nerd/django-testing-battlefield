@@ -1,0 +1,74 @@
+{% extends "_base.html" %}
+
+{% block title %}<title>Calculadora</title>{% endblock title %}
+
+{% block content %}
+    <header class="hero is-link">
+        <div class="hero-body">
+            <p class="title">
+                Calculadora
+            </p>
+            <p class="subtitle">
+                Ingrese los datos
+            </p>
+        </div>
+    </header>
+    <section class="section">
+        <div class="container">
+            {% if request.GET.keys %}
+                {% if result %}
+                    <div class="notification is-success is-light">
+                        El resultado es <strong>{{ result }}</strong>
+                    </div>
+                {% else %}
+                    <div class="notification is-danger is-light">
+                        Es posible que haya ocurrido un error con los valores. <strong>Inténtalo de nuevo.</strong>
+                    </div>
+                {% endif %}
+            {% endif %}
+
+
+
+            <form>
+                <div class="field">
+                    <label for="first-number-id" class="label">Primer número:</label>
+                    <div class="control">
+                        <input class="input" type="number" name="first_number" id="first-number-id"/>
+                    </div>
+                </div>
+
+                <div class="field">
+                    <label for="operation-id" class="label">Operación:</label>
+                    <div class="control">
+                        <div class="select">
+                            <select name="operation" id="operation-id">
+                                <option value="">Elegir una operación</option>
+                                <option>+</option>
+                                <option>-</option>
+                                <option>*</option>
+                                <option>/</option>
+                                <option>**</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="field">
+                    <label for="second-number-id" class="label">Segundo número:</label>
+                    <div class="control">
+                        <input class="input" type="number" name="second_number" id="second-number-id"/>
+                    </div>
+                </div>
+
+                <div class="field is-grouped">
+                    <div class="control">
+                        <button type="submit" class="button is-link">Ejecutar</button>
+                    </div>
+                    <div class="control">
+                        <a href="{% url 'calculator:calculator' %}" class="button is-link is-light">Limpiar</a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </section>
+{% endblock content %}

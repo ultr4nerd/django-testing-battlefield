@@ -1,0 +1,48 @@
+{% extends "_base.html" %}
+
+{% block title %}<title>Iniciar sesión</title>{% endblock title %}
+
+{% block content %}
+    <header class="hero is-light">
+        <div class="hero-body">
+            <p class="title">
+                Iniciar sesión
+            </p>
+        </div>
+    </header>
+    <section class="section">
+        <div class="container">
+            {% if form.errors %}
+                <p>Tu nombre de usuario y contraseña no coinciden. Inténtalo de nuevo.</p>
+            {% endif %}
+
+            <form method="POST">
+                {% csrf_token %}
+                <div class="field">
+                    <label for="username-id" class="label">
+                        Nombre de usuario:
+                    </label>
+                    <div class="control">
+                        <input
+                                class="input" type="text" name="username" id="username-id" required
+                                {% if form.errors %}value="{{ form.username.value }}"{% endif %}
+                        />
+                    </div>
+                </div>
+                <div class="field">
+                    <label for="password-id" class="label">
+                        Contraseña:
+                    </label>
+                    <div class="control">
+                        <input
+                                class="input" type="password" name="password" id="password-id" required
+                                {% if form.errors %}value="{{ form.password.value }}"{% endif %}
+                        />
+                    </div>
+                </div>
+
+                <button type="submit" class="button is-link">Iniciar sesión</button>
+            </form>
+        </div>
+    </section>
+{% endblock %}
